@@ -4,12 +4,10 @@ A simple repo which makes it easy to bring up a NixOS instance in 10 minutes. Th
 nixos-anywhere.
 
 Prerequisites:
-
 - `docker` and `docker-compose` running on the local machine
 - a remote linux VM in which the root account can be accessed via ssh
 
 How this works:
-
 - bring up the docker container which provides a flake enabled nix environment
 - create a new ssh key inside the container and put the pubkey on the remote VM in the root account
 - check the disk configuration
@@ -37,7 +35,7 @@ ssh-keygen
 cat /root/.ssh/id_ed25519.pub
 
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIASmQy+YhNo6spFGwNrUjtBHgQBIsCj2GjBQ8wM1KPKc
-test ssh 192.168.1.189
+test ssh 192.168.1.17
 
 lsblk
 
@@ -56,6 +54,6 @@ cd /root
 git clone https://github.com/seanrmurphy/nixos-in-10-minutes.git
 
 cd nixos-in-10-minutes/nixos-anywhere/
-nix run github:nix-community/nixos-anywhere -- --flake .#nixos-anywhere-vm root@192.168.1.189
+nix run github:nix-community/nixos-anywhere -- --flake .#nixos-anywhere-vm root@192.168.1.17
 
-ssh 192.168.1.189
+ssh 192.168.1.17
