@@ -4,10 +4,12 @@ A simple repo which makes it easy to bring up a NixOS instance in 10 minutes. Th
 nixos-anywhere.
 
 Prerequisites:
+
 - `docker` and `docker-compose` running on the local machine
 - a remote linux VM in which the root account can be accessed via ssh
 
 How this works:
+
 - bring up the docker container which provides a flake enabled nix environment
 - create a new ssh key inside the container and put the pubkey on the remote VM in the root account
 - check the disk configuration
@@ -24,18 +26,23 @@ docker compose run --rm nixos-anywhere
 mkdir -p /root/.config/nix
 echo experimental-features = nix-command flakes > /root/.config/nix/nix.conf
 
-# the following is required on an aarch64 machine building x86_64 binaries
-
-echo filter-syscalls = false >> /root/.config/nix/nix.conf
+echo filter-syscalls = false >> /root/.config/nix/nix.conf # required on aarch64 building x86_64 binaries
 cat /root/.config/nix/nix.conf
 nix shell nixpkgs#jq
 jq
+nix shell nixpkgs#vim
 
 ssh-keygen
+
+mkdir -p /root/.ssh
+touch /root/.ssh/id_ed25519.pub
+touch /root/.ssh/id_ed25519
+
 cat /root/.ssh/id_ed25519.pub
 
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIASmQy+YhNo6spFGwNrUjtBHgQBIsCj2GjBQ8wM1KPKc
-test ssh 192.168.1.17
+
+ssh 192.168.1.17
 
 lsblk
 
